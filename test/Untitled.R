@@ -2,9 +2,9 @@ library(TIGENS)
 library(dplyr)
 library(readr)
 
-setwd("~/hzi-li/project/300BCG/git/TIGENS")
+setwd("~/TIGENS")
 
-inputs = data.frame(read_tsv("../../algorithm/results/disease/sepsis_valerie_degs.txt"))
+inputs = data.frame(read_tsv("./degs.txt"))
 
 inputs = inputs[,c("gene", "avg_log2FC", "patient")]
 load("./test/TIGs.RData")
@@ -26,7 +26,7 @@ res = DisAssoc(disease_data = inputs,
                ti_gene = refs,
                pval_cutoff = Pval_Cutoff)
 
-
+## basic version
 plots = GSEAplot_Basic(res, 1,
                        disease_name = Disease_Name,
                        sub_type = Sub_Type,
@@ -35,6 +35,7 @@ plots = GSEAplot_Basic(res, 1,
 plots
 
 
+## 
 plots2 = GSEAplot(res, 1,
                    disease_name = Disease_Name,
                    sub_type = Sub_Type,
@@ -49,42 +50,5 @@ plots2
 genes_to_enrich = enriched_gene_to_pathway(res)
 
 data.frame(res@result)
-
-
-##### test
-gsInfo <- function(object, geneSetID) {
-  geneList <- object@geneList
-
-  if (is.numeric(geneSetID))
-    geneSetID <- object@result[geneSetID, "ID"]
-
-  geneSet <- object@geneSets[[geneSetID]]
-  exponent <- object@params[["exponent"]]
-  df <- gseaScores(geneList, geneSet, exponent, fortify=TRUE)
-  df$ymin <- 0
-  df$ymax <- 0
-  pos <- df$position == 1
-  h <- diff(range(df$runningScore))/20
-  df$ymin[pos] <- -h
-  df$ymax[pos] <- h
-  df$geneList <- geneList
-  if (length(object@gene2Symbol) == 0) {
-    df$gene <- names(geneList)
-  } else {
-    df$gene <- object@gene2Symbol[names(geneList)]
-  }
-
-  df$Description <- object@result[geneSetID, "Description"]
-  return(df)
-}
-
-
-a = gsInfo(res, geneSetID = 1)
-
-
-
-gseaplot(res, geneSetID = 1) +
-  theme(axis.title.y.left = element_text(size = 0.8)) +
-  geom_gsea_gene(genes_to_enrich,a)
 
 
