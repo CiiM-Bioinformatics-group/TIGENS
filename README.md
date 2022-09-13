@@ -20,6 +20,9 @@ We use the single-cell RNAseq data generated from Sepsis patients[1], with immun
 
 We use the DEGs between immune paralysis patients and healthy people and test the up-regulated TIGs in TM4.
 
+![GSEAexample1](https://user-images.githubusercontent.com/107392830/189920977-233fbbe7-1797-48df-830d-9b96bacc00d9.jpg)
+
+![GSEAexample2](https://user-images.githubusercontent.com/107392830/189921010-c8d1480f-e6a3-4c53-b74a-2995c2495351.jpg)
 
 
 # How to use:
