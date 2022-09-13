@@ -16,12 +16,14 @@ We investigated the heterogeneity of TI induction by single-cell RNA-seq of immu
 
 We use the single-cell RNAseq data generated from Sepsis patients[1], with immune paralysis and macrophage activation-like syndrome (MALS) profiles.
 
-Below is an example of the enrichment:
+# Below is an example of the enrichment:
 
 We use the DEGs between immune paralysis patients and healthy people and test the up-regulated TIGs in TM4.
 
 
 
+# How to use:
 
+The example could be found here: /test/Untitled.R
 
 [1] Valerie Koeken, Inge Grondman, Athanasios Karageorgos, Wenchao Li, Nikolaos Antonakos, Bowen Zhang, Georgia Damoraki, Cheng-Jian Xu, Evangelos J. Giamarellos-Bourboulis, Yang Li, Mihai G. Netea, Single-cell transcriptomics differentiates hyperinflammation from immune paralysis in sepsis patients. (submitted) (2022).
