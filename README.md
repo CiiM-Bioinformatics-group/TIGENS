@@ -29,4 +29,11 @@ We use the DEGs between immune paralysis patients and healthy people and test th
 
 The example could be found here: /test/Untitled.R
 
+# Reference: 
+
 [1] Valerie Koeken, Inge Grondman, Athanasios Karageorgos, Wenchao Li, Nikolaos Antonakos, Bowen Zhang, Georgia Damoraki, Cheng-Jian Xu, Evangelos J. Giamarellos-Bourboulis, Yang Li, Mihai G. Netea, Single-cell transcriptomics differentiates hyperinflammation from immune paralysis in sepsis patients. (submitted) (2022).
+
+# Citation:
+
+A single cell view on host immune transcriptional response to in vivo BCG-induced trained immunity. (submitted). 2022.
+
