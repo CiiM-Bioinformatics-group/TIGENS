@@ -4,7 +4,7 @@
 \alias{calgsea}
 \title{Calcualte GSEA enrichment}
 \usage{
-calgsea(dir_ti_gene, j, rank_dd, sub_type)
+calgsea(dir_ti_gene, j, rank_dd, pval_cutoff)
 }
 \arguments{
 \item{dir_ti_gene}{Data.frame includes TIGs, avg_lo2FC, regulated direction}
@@ -13,7 +13,7 @@ calgsea(dir_ti_gene, j, rank_dd, sub_type)
 
 \item{rank_dd}{Ranked disease DEGs}
 
-\item{sub_type}{The tested sub-type of disease}
+\item{pval_cutoff}{pvalue threshold for gsea enrichment results}
 }
 \value{
 GSEA enrichment results

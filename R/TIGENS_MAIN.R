@@ -5,22 +5,27 @@
 #' colnames of other metadata should be "subtype".
 #' @param disease_data data.frame with colnames "gene", "value", ("subtype")
 #' @param sub_type which disease subtype should be tested
+#' @param cutoff threshold for value in input files to define the intested geneset
 #' @import dplyr
 #' @importFrom dplyr %>%
 #' @return Return ranked data.frame based on "value"
 #'
 #' @export
 
-PreProDisData <- function(disease_data, sub_type)
+PreProDisData <- function(disease_data, sub_type, cutoff)
 {
   if (ncol(disease_data) == 2)
     disease_data$subtype = "all"
   else if(ncol(disease_data) > 2)
-    disease_data = disease_data %>% filter(subtype == sub_type)
+    disease_data = disease_data[which(disease_data[,3] == sub_type), ]
+    # disease_data = disease_data %>% filter(subtype == sub_type)
+
   else if(ncol(disease_data) < 2)
     stop("error: at least two columns (gene, value) should be provided!")
 
-  rank_dd = disease_data[order(disease_data$value, decreasing = TRUE), ]
+  disease_data = disease_data[which(abs(disease_data[,2]) >= cutoff),]
+
+  rank_dd = disease_data[order(disease_data[,2], decreasing = TRUE), ]
 
   return(rank_dd)
 
@@ -39,6 +44,7 @@ PreProDisData <- function(disease_data, sub_type)
 #' @param cutoff  Select genes to gsea
 #' @param sub_type which disease subtype should be tested
 #' @param ti_gene reference database downloaded from github
+#' @param pval_cutoff pvalue threshold for gsea enrichment results
 #' @import clusterProfiler
 #' @import dplyr
 #' @importFrom clusterProfiler GSEA
@@ -49,20 +55,20 @@ PreProDisData <- function(disease_data, sub_type)
 #' @export
 
 
-DisAssoc = function(disease_data, reg_dir, cluster_id, cutoff, sub_type, ti_gene)
+DisAssoc = function(disease_data, reg_dir, cluster_id, cutoff, sub_type, ti_gene, pval_cutoff)
 {
 
-  rank_dd = PreProDisData(disease_data, sub_type)
+  rank_dd = PreProDisData(disease_data, sub_type, cutoff)
   if (reg_dir == "up")
-    dir_ti_gene = ti_gene %>% filter(avg_log2FC > 0 & cluster == cluster_id)
-
+    # dir_ti_gene = ti_gene %>% filter(avg_log2FC > 0 & cluster == cluster_id)
+    dir_ti_gene = ti_gene[which(ti_gene[,2] > 0 & ti_gene[,7] == cluster_id), ]
   else if(reg_dir == "down")
-    dir_ti_gene = ti_gene %>% filter(avg_log2FC < 0 & cluster == cluster_id)
+    dir_ti_gene = ti_gene[which(ti_gene[,2] < 0 & ti_gene[,7] == cluster_id), ]
   else
     stop("error: please add regulatory dirction!")
 
 
-  gsea_results = calgsea(dir_ti_gene, cluster_id, rank_dd, rank_dd$subtype)
+  gsea_results = calgsea(dir_ti_gene, cluster_id, rank_dd, pval_cutoff)
 
 
   return(gsea_results)
@@ -75,7 +81,7 @@ DisAssoc = function(disease_data, reg_dir, cluster_id, cutoff, sub_type, ti_gene
 #' @param dir_ti_gene Data.frame includes TIGs, avg_lo2FC, regulated direction
 #' @param j The tested sub-population
 #' @param rank_dd Ranked disease DEGs
-#' @param sub_type The tested sub-type of disease
+#' @param pval_cutoff pvalue threshold for gsea enrichment results
 #' @import clusterProfiler
 #' @importFrom clusterProfiler GSEA
 #' @return GSEA enrichment results
@@ -83,15 +89,14 @@ DisAssoc = function(disease_data, reg_dir, cluster_id, cutoff, sub_type, ti_gene
 #' @export
 
 
-calgsea = function(dir_ti_gene, j, rank_dd, sub_type)
+calgsea = function(dir_ti_gene, j, rank_dd, pval_cutoff)
 {
   term_gene = data.frame(ti_cluster = j,
-                         geneID = dir_ti_gene$gene)
-  rank_dd = rank_dd %>% filter(subtype == sub_type)
-  ranks_gene = rank_dd$value
-  names(ranks_gene) = rank_dd$gene
+                         geneID = dir_ti_gene[,6])
+  ranks_gene = as.vector(data.frame(rank_dd[,2])[,1])
+  names(ranks_gene) = as.vector(data.frame(rank_dd[,1])[,1])
   gsea_results = GSEA(geneList = ranks_gene,
-                      pvalueCutoff = 0.1,
+                      pvalueCutoff = pval_cutoff,
                       minGSSize = 3,
                       TERM2GENE = term_gene,
                       eps = 0)

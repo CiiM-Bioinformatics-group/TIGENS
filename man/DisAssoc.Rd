@@ -4,7 +4,15 @@
 \alias{DisAssoc}
 \title{Check the association between specific disease and monocytes sub-populations}
 \usage{
-DisAssoc(disease_data, reg_dir, cluster_id, cutoff, sub_type, ti_gene)
+DisAssoc(
+  disease_data,
+  reg_dir,
+  cluster_id,
+  cutoff,
+  sub_type,
+  ti_gene,
+  pval_cutoff
+)
 }
 \arguments{
 \item{disease_data}{The input data.frame with colnames "gene", "value", ("subtype")}
@@ -18,6 +26,8 @@ DisAssoc(disease_data, reg_dir, cluster_id, cutoff, sub_type, ti_gene)
 \item{sub_type}{which disease subtype should be tested}
 
 \item{ti_gene}{reference database downloaded from github}
+
+\item{pval_cutoff}{pvalue threshold for gsea enrichment results}
 }
 \value{
 Enriched GSEA results for plotting or other downstream analysis

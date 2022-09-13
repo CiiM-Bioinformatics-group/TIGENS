@@ -1,19 +1,20 @@
 Package: TIGENS
 Title: Association between diseases and TIGs.
-Version: 0.0.0.9000
-Authors@R: 
-    person(given = "Wenchao",
-           family = "Li",
-           role = c("aut", "cre"),
-           email = "Wenchao.Li@helmholtz-hzi.de",
-           comment = c(ORCID = "0000-0002-7956-0742"))
+Version: 0.2.0
+Authors@R: person(given = "Wenchao", family = "Li", role = c("aut", "cre"),
+                  email = "Wenchao.Li@helmholtz-hzi.de",
+                  comment = c(ORCID = "0000-0002-7956-0742"))
 Description: Association between diseases and TIGs.
 Depends:
     R (>= 4.0.3)
 Imports:
     ggplot2,
     dplyr,
-    clusterProfiler
+    clusterProfiler,
+    RColorBrewer,
+    aplot,
+    DOSE,
+    gridExtra
 License: use_mit_license()
 Encoding: UTF-8
 LazyData: true

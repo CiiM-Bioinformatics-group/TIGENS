@@ -4,12 +4,14 @@
 \alias{PreProDisData}
 \title{Pre-Processing of input dataset}
 \usage{
-PreProDisData(disease_data, sub_type)
+PreProDisData(disease_data, sub_type, cutoff)
 }
 \arguments{
 \item{disease_data}{data.frame with colnames "gene", "value", ("subtype")}
 
 \item{sub_type}{which disease subtype should be tested}
+
+\item{cutoff}{threshold for value in input files to define the intested geneset}
 }
 \value{
 Return ranked data.frame based on "value"

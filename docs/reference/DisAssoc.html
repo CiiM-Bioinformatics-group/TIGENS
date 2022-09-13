@@ -20,7 +20,7 @@ classified into sub-types. For each disease/sub-type, genes will be ranked based
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">TIGENS</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.0</span>
       </span>
     </div>
 
@@ -50,7 +50,15 @@ classified into sub-types. For each disease/sub-type, genes will be ranked based
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">DisAssoc</span><span class="op">(</span><span class="va">disease_data</span>, <span class="va">reg_dir</span>, <span class="va">cluster_id</span>, <span class="va">cutoff</span>, <span class="va">sub_type</span>, <span class="va">ti_gene</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">DisAssoc</span><span class="op">(</span></span>
+<span>  <span class="va">disease_data</span>,</span>
+<span>  <span class="va">reg_dir</span>,</span>
+<span>  <span class="va">cluster_id</span>,</span>
+<span>  <span class="va">cutoff</span>,</span>
+<span>  <span class="va">sub_type</span>,</span>
+<span>  <span class="va">ti_gene</span>,</span>
+<span>  <span class="va">pval_cutoff</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -77,6 +85,10 @@ classified into sub-types. For each disease/sub-type, genes will be ranked based
 
 <dt>ti_gene</dt>
 <dd><p>reference database downloaded from github</p></dd>
+
+
+<dt>pval_cutoff</dt>
+<dd><p>pvalue threshold for gsea enrichment results</p></dd>
 
 </dl></div>
     <div id="value">

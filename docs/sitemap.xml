@@ -13,6 +13,12 @@
     <loc>/reference/DisAssoc.html</loc>
   </url>
   <url>
+    <loc>/reference/GSEAplot.html</loc>
+  </url>
+  <url>
+    <loc>/reference/GSEAplot_Basic.html</loc>
+  </url>
+  <url>
     <loc>/reference/PlotAssoc.html</loc>
   </url>
   <url>
@@ -23,6 +29,9 @@
   </url>
   <url>
     <loc>/reference/enriched_gene_to_pathway.html</loc>
+  </url>
+  <url>
+    <loc>/reference/gsInfo.html</loc>
   </url>
   <url>
     <loc>/reference/index.html</loc>
