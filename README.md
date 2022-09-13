@@ -1,94 +1,27 @@
 # TIGENS
 
+Test the enrichment of gene signatures from different trained immunity monocyte sub-populations in patients’ transcriptome data.
+
 # Installation of TIGENS
 #install.packages("devtools")
 
-devtools::install_github("wenchaoli1007/TIGENS")
+devtools::install_github("CiiM-Bioinformatics-group/TIGENS")
 
 
 
 
-# Example
+# Introduction to TIGENS:
 
-library(TIGENS)
+We investigated the heterogeneity of TI induction by single-cell RNA-seq of immune cells collected from 39 healthy individuals before and three months after BCG vaccination, and after ex vivo heterologous stimulation with lipopolysaccharide (LPS). We observed that not only monocytes but also CD8+ T cells showed heterologous transcriptional responses after stimulation with LPS, with an active crosstalk between these two cell types. Unsupervised clustering identified four distinct functional monocyte sub-populations. Enrichment analysis indicated that the interferon-gamma pathway was crucial in BCG-induced TI, and this pathway was up-regulated in functional high-responders. To investigate the characteristics of newly defined TI sub-populations, data-driven and public dataset-based analyses were combined with functional experiments, and revealed STAT1 to be an enriched transcription factor for TI shared in all sub-populations. Finally, we reported the role of type I interferon-related and neutrophil-related TI transcriptional programs in patients with sepsis. These findings provided comprehensive insights into the importance of monocyte heterogeneity during TI in humans. The association of these TI programs with disease could be informative for novel immunotherapy design. 
 
-library(dplyr)
+We use the single-cell RNAseq data generated from Sepsis patients[1], with immune paralysis and macrophage activation-like syndrome (MALS) profiles.
 
-library(readr)
+Below is an example of the enrichment:
 
-
-setwd("~/TIGENS")
-
-inputs = data.frame(read_tsv("./degs.txt"))
-
-inputs = inputs[,c("gene", "avg_log2FC", "patient")]
-
-load("./test/TIGs.RData")
-
-Disease_Name = "Sepsis"
-
-Sub_Type = "Immune paralysis"
-
-Reg_Dir = "up"
-
-Test_Dis_Cutoff = 0.25
-
-Tested_TI_Cluster = 4
-
-Tested_TI_Cluster2 = "TM4"
-
-Pval_Cutoff = 0.1
-
-refs = data.frame(ti_gene)
-
-res = DisAssoc(disease_data = inputs,
-
-               reg_dir = Reg_Dir,
-               
-               cluster_id = Tested_TI_Cluster,
-               
-               cutoff = Test_Dis_Cutoff,
-               
-               sub_type = Sub_Type,
-               
-               ti_gene = refs,
-               
-               pval_cutoff = Pval_Cutoff)
-
-## basic version
-
-plots = GSEAplot_Basic(res, 1,
-
-                       disease_name = Disease_Name,
-                       
-                       sub_type = Sub_Type,
-                       
-                       cluster_id = Tested_TI_Cluster2,
-                       
-                       reg_dir = Reg_Dir)
-                       
-plots
+We use the DEGs between immune paralysis patients and healthy people and test the up-regulated TIGs in TM4.
 
 
 
-## 
-plots2 = GSEAplot(res, 1,
-
-                   disease_name = Disease_Name,
-                   
-                   sub_type = Sub_Type,
-                   
-                   cluster_id = Tested_TI_Cluster2,
-                   
-                   reg_dir = Reg_Dir,
-                   
-                   pvalue_table = TRUE)
 
 
-plots2
-
-
-
-genes_to_enrich = enriched_gene_to_pathway(res)
-
-data.frame(res@result)
+[1] Valerie Koeken, Inge Grondman, Athanasios Karageorgos, Wenchao Li, Nikolaos Antonakos, Bowen Zhang, Georgia Damoraki, Cheng-Jian Xu, Evangelos J. Giamarellos-Bourboulis, Yang Li, Mihai G. Netea, Single-cell transcriptomics differentiates hyperinflammation from immune paralysis in sepsis patients. (submitted) (2022).
